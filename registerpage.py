@@ -1,5 +1,5 @@
-#import loginpage
-#import database.basicqueries as basicqueries
+import loginpage
+import database.basicqueries as basicqueries
 from tkinter import Tk, Label, PhotoImage, Entry, Button, Spinbox, StringVar, OptionMenu
 
 class RegisterPage:
@@ -90,23 +90,27 @@ class RegisterPage:
     def register(self):
         username = self.username_entry.get()
         password = self.password_entry.get()
+        age = self.age_entry.get()
+        gender = self.selected_option.get()
+        year = self.selected_year_option.get()
+        major = self.selected_major_option.get()
 
         if not username or not password:
             self.error_message = "Please fill in all fields."
             self.error_message_label.config(text=self.error_message)
 
-        # elif basicqueries.check_for_same_username(username):
-        #     self.error_message = "Username already exists. Please choose another one."
-        #     self.error_message_label.config(text=self.error_message)
-        # else:
-        #     basicqueries.add_user(username, password)
-        #     self.error_message = "Successfully registered. Please log in."
-        #     self.error_message_label.config(text=self.error_message)
-        #     self.root.after(500, lambda: self.redirect_to_loginpage())
+        elif basicqueries.check_for_same_username(username):
+            self.error_message = "Username already exists. Please choose another one."
+            self.error_message_label.config(text=self.error_message)
+        else:
+            basicqueries.add_user(username, password, age, gender, year, major)
+            self.error_message = "Successfully registered. Please log in."
+            self.error_message_label.config(text=self.error_message)
+            self.root.after(500, lambda: self.redirect_to_loginpage())
 
     def redirect_to_loginpage(self):
         self.root.destroy()
-        # loginpage.LoginPage()
+        loginpage.LoginPage()
 
 if __name__ == "__main__":
     register_page = RegisterPage()

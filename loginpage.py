@@ -1,5 +1,5 @@
 #import profilepage
-#import database.basicqueries as basicqueries
+import database.basicqueries as basicqueries
 from tkinter import Tk, Label, PhotoImage, Button, Entry
 
 class LoginPage:
@@ -51,29 +51,29 @@ class LoginPage:
         username = self.username_entry.get()
         password = self.password_entry.get()
 
-    #     if len(basicqueries.check_for_same_username(username)) == 0:
-    #         self.error_message = "No such user!"
-    #         self.error_message_label.config(text=self.error_message)
-    #         print("No such user!")
+        if len(basicqueries.check_for_same_username(username)) == 0:
+            self.error_message = "No such user!"
+            self.error_message_label.config(text=self.error_message)
+            print("No such user!")
 
-    #     else:
-    #         user_id = basicqueries.check_for_same_username(username)[0][0]
-    #         result = basicqueries.get_user_credentials(user_id)
+        else:
+            user_id = basicqueries.check_for_same_username(username)[0][0]
+            result = basicqueries.get_user_credentials(user_id)
 
-    #         if result[0] == (username, password):
-    #             self.error_message = "Successful login!"
-    #             self.error_message_label.config(text=self.error_message)
-    #             print("Successful login!")
-    #             self.root.after(500, lambda: self.redirect_to_profilepage(username))
+            if result[0] == (username, password):
+                self.error_message = "Successful login!"
+                self.error_message_label.config(text=self.error_message)
+                print("Successful login!")
+                self.root.after(500, lambda: self.redirect_to_profilepage(username))
 
-    #         else:
-    #             self.error_message = "Wrong password!"
-    #             self.error_message_label.config(text=self.error_message)
-    #             print("Wrong password!")
+            else:
+                self.error_message = "Wrong password!"
+                self.error_message_label.config(text=self.error_message)
+                print("Wrong password!")
 
-    # def redirect_to_profilepage(self, username):
-    #     self.root.destroy()
-    #     profilepage.ProfilePage(username)
+    def redirect_to_profilepage(self, username):
+        self.root.destroy()
+        #profilepage.ProfilePage(username)
 
 if __name__ == "__main__":
     app = LoginPage()

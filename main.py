@@ -1,5 +1,5 @@
-#import loginpage
-#import registerpage
+import loginpage
+import registerpage
 from tkinter import Tk, Label, PhotoImage, Button
 
 class MainPage:
@@ -13,18 +13,11 @@ class MainPage:
         screen_height = self.root.winfo_screenheight()
         self.root.geometry(f"{screen_width}x{screen_height}+0+0")
 
-        # self.root["bg"]="#354255"
-        # '#100235'
         self.MAIN_COLOUR = "#346c99"
         self.FONT_COLOUR = '#8c198f'
         self.FONT_COLOUR = '#ffffff'
         
         self.root.config(bg=self.MAIN_COLOUR)
-
-        # self.background_label = Label(self.root)
-        # self.background_label.place(x=0, y=0, relwidth=1, relheight=1, width=1500, height=1500)
-        #self.background_image = PhotoImage(file = "D:/StrypesLab/StudentExpense/StudentExpense/e.png")
-        #self.background_label.configure(image=self.background_image)
 
         self.text_label = Label(self.root, text="Welcome to Mihaela's Student Expense Analiser", font=(None, 20), bg=self.MAIN_COLOUR, fg =self.FONT_COLOUR)
         self.text_label.place(relx=0.5, rely=0.15, anchor="center")
