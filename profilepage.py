@@ -1,4 +1,6 @@
 import mainpage
+import statisticspage
+import database.basicqueries as basicqueries
 from tkinter import Tk, Label, Button, PhotoImage, Spinbox, StringVar, OptionMenu, Canvas
 
 class ProfilePage:
@@ -34,7 +36,7 @@ class ProfilePage:
         # Draw a vertical line from y1=50 to y2=250
         self.line_canvas.create_line(0, 30, 0, 750, fill=self.FONT_COLOUR, width=2)
 
-        self.monthly_income_label = Label(self.root, text="Monthly income (and aid)", font=(None, 14), bd=0, bg=self.MAIN_COLOUR, fg=self.FONT_COLOUR)
+        self.monthly_income_label = Label(self.root, text="Monthly income", font=(None, 14), bd=0, bg=self.MAIN_COLOUR, fg=self.FONT_COLOUR)
         self.monthly_income_label.place(relx=0.35, rely=0.37, anchor="center")
         
         self.tuition_label = Label(self.root, text="Yearly tuition", font=(None, 14), bd=0, bg=self.MAIN_COLOUR, fg=self.FONT_COLOUR)
@@ -77,6 +79,9 @@ class ProfilePage:
         # Preferred_payment_method Label
         self.preferred_payment_method_label = Label(self.root, text="Preferred payment method", font=(None, 14), bd=0, bg=self.MAIN_COLOUR, fg=self.FONT_COLOUR)
         self.preferred_payment_method_label.place(relx=0.65, rely=0.77, anchor="center")
+        
+        self.aid_label = Label(self.root, text="Aid", font=(None, 14), bd=0, bg=self.MAIN_COLOUR, fg=self.FONT_COLOUR)
+        self.aid_label.place(relx=0.5, rely=0.85, anchor="center")
         
         # Monthly income (and aid) Spinbox
         self.incomes_entry = Spinbox(self.root, font=(None, 14), from_=0, to=10000, width=20)
@@ -130,19 +135,45 @@ class ProfilePage:
         self.payment_entry.place(relx=0.65, rely=0.81, anchor="center")
         self.payment_entry.config(width=31)
         
+        self.aid_entry = Spinbox(self.root, font=(None, 14), from_=0, to=10000, width=20)
+        self.aid_entry.place(relx=0.5, rely=0.89, anchor="center")
+        
         self.statistics_button = Button(self.root, text="Statistics", font=(None, 14), bg="#ffcced", activebackground="#fe67c2", command=self.open_statistics_page, width=15, height=2)
-        self.statistics_button.place(relx=0.5, rely=0.65, anchor="center")
-        self.statistics_button.place(relx=0.35, rely=0.9, anchor="center")
+        self.statistics_button.place(relx=0.35, rely=0.90, anchor="center")
 
         self.logout_button = Button(self.root, text="Logout", font=(None, 14), bg="#ffcced", activebackground="#fe67c2", command=self.open_main_page, width=15, height=2)
-        self.logout_button.place(relx=0.5, rely=0.75, anchor="center")
-        self.logout_button.place(relx=0.65, rely=0.9, anchor="center")
+        self.logout_button.place(relx=0.65, rely=0.90, anchor="center")
 
         self.root.mainloop()
 
     def open_statistics_page(self):
+        
+        username = self.username
+        income = self.incomes_entry.get()
+        tuition = self.tuition_entry.get()
+        aid = self.aid_entry.get()
+        housing = self.housing_entry.get()
+        food = self.food_entry.get()
+        transportation = self.transportation_entry.get()
+        books_supplies = self.books_supplies_entry.get()
+        entertainment = self.entertainment_entry.get()
+        personal_care = self.personal_care_entry.get()
+        technology = self.technology_entry.get()
+        health_and_wellness = self.health_wellness_entry.get()
+        miscellaneous = self.miscellaneous_entry.get()
+        payment_method = self.selected_option.get()
+        
+        additional_parameters = basicqueries.get_user_information(username)[0]
+        age = additional_parameters[0]
+        gender = additional_parameters[1]
+        year = additional_parameters[2]
+        major = additional_parameters[3]
+        print(additional_parameters)
+        
         self.root.destroy()
-        #statisticspage.StatisticsDisplay(self.username)
+        statisticspage.StatisticsDisplay(username, age, gender, year, major, income, aid, tuition, housing, food,
+                                         transportation, books_supplies, entertainment, personal_care, technology,
+                                         health_and_wellness, miscellaneous, payment_method)
 
     def open_main_page(self):
         self.root.destroy()

@@ -32,3 +32,4 @@ def get_user_information(username):
     result = cursor.fetchall()
     connection.commit()
     connection.close()
+    return result

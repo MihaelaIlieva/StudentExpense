@@ -1,4 +1,4 @@
-#import profilepage
+import profilepage
 import database.basicqueries as basicqueries
 from tkinter import Tk, Label, PhotoImage, Button, Entry
 
@@ -73,7 +73,7 @@ class LoginPage:
 
     def redirect_to_profilepage(self, username):
         self.root.destroy()
-        #profilepage.ProfilePage(username)
+        profilepage.ProfilePage(username)
 
 if __name__ == "__main__":
     app = LoginPage()
